@@ -1,19 +1,87 @@
+/* ===== Password Lock ===== */
+(function initLock() {
+  // SHA-256 hash of the password — change by running:
+  // echo -n "yourpassword" | shasum -a 256
+  const PASS_HASH = 'f50fe6bb20fa12e78d072a698dc70afba1ba93fe22080c48452b9ebbd3a74296';
+
+  if (sessionStorage.getItem('unlocked') === 'true') {
+    document.getElementById('lock-screen')?.classList.add('hidden');
+    return;
+  }
+
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function tryUnlock() {
+    const input = document.getElementById('lock-input');
+    const error = document.getElementById('lock-error');
+    const hash = await sha256(input.value);
+    if (hash === PASS_HASH) {
+      sessionStorage.setItem('unlocked', 'true');
+      document.getElementById('lock-screen').classList.add('hidden');
+    } else {
+      error.textContent = 'Incorrect password';
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('lock-btn').addEventListener('click', tryUnlock);
+    document.getElementById('lock-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') tryUnlock();
+    });
+  });
+})();
+
 /* ===== Configuration ===== */
 const CONFIG = {
   creditsPerDollar: 50, // $1 = 50 AI Credits (50% gross margin)
-  learnerCaseTypes: [
-    { id: 'full',    name: 'Full Cases',            credits: 175,  info: 'Comprehensive patient cases involving five stations — Focused History, Physical Examination, Assessment, Diagnostic Tests, and SOAP Note — designed for complete clinical assessment.' },
-    { id: 'pd',      name: 'PD Cases',              credits: 150,  info: 'Focused history and physical examination cases, designed to strengthen your information gathering and physical exam skills.' },
-    { id: 'single',  name: 'Single Station Cases',  credits: 75,   info: 'Targeted patient cases involving a single station — such as Focused History, Assessment, Patient Education, Professionalism, or others — designed to help you build specific clinical skills.' },
-    { id: 'circuit', name: 'Circuits',              credits: 375,  info: 'Clinical circuits of up to eight single-station cases — each with a different scenario — designed to simulate exam flows, reinforce clinical skills, and assess performance across clinical scenarios.' },
-    { id: 'cdss',    name: 'CDSS',                  credits: 1,    info: 'Socratic-style Clinical Decision Support System to help the learner during the simulation.' },
+  chartColors: ['color-0', 'color-1', 'color-2', 'color-3', 'color-4', 'color-0', 'color-1', 'color-2', 'color-3', 'color-4'],
+  products: [
+    {
+      id: 'aics',
+      name: 'AI Clinical Simulation',
+      learnerTypes: [
+        { id: 'aics-full',    name: 'Full Cases',            credits: 175,  info: 'Comprehensive patient cases involving five stations — Focused History, Physical Examination, Assessment, Diagnostic Tests, and SOAP Note — designed for complete clinical assessment.' },
+        { id: 'aics-pd',      name: 'PD Cases',              credits: 150,  info: 'Focused history and physical examination cases, designed to strengthen your information gathering and physical exam skills.' },
+        { id: 'aics-single',  name: 'Single Station Cases',  credits: 75,   info: 'Targeted patient cases involving a single station — such as Focused History, Assessment, Patient Education, Professionalism, or others — designed to help you build specific clinical skills.' },
+        { id: 'aics-circuit', name: 'Circuits',              credits: 375,  info: 'Clinical circuits of up to eight single-station cases — each with a different scenario — designed to simulate exam flows, reinforce clinical skills, and assess performance across clinical scenarios.' },
+        { id: 'aics-cdss',    name: 'CDSS',                  credits: 1,    info: 'Socratic-style Clinical Decision Support System to help the learner during the simulation.' },
+      ],
+      educatorTypes: [
+        { id: 'aics-full',    name: 'Full Cases',            credits: 30,  info: 'Comprehensive patient cases involving five stations — Focused History, Physical Examination, Assessment, Diagnostic Tests, and SOAP Note — designed for complete clinical assessment.' },
+        { id: 'aics-pd',      name: 'PD Cases',              credits: 15,  info: 'Focused history and physical examination cases, designed to strengthen your information gathering and physical exam skills.' },
+        { id: 'aics-single',  name: 'Single Station Cases',  credits: 10,  info: 'Targeted patient cases involving a single station — such as Focused History, Assessment, Patient Education, Professionalism, or others — designed to help you build specific clinical skills.' },
+      ],
+    },
+    {
+      id: 'ait',
+      name: 'AI Tutor',
+      learnerTypes: [
+        { id: 'ait-flashcards',       name: 'Flashcards Deck',      credits: 15 },
+        { id: 'ait-quiz',             name: 'Quiz',                 credits: 15 },
+        { id: 'ait-summary',          name: 'Summary',              credits: 15 },
+      ],
+      educatorTypes: [
+        { id: 'ait-profile-summary',  name: 'Profile Summary',       credits: 2,  info: 'Group and student profile summary generation.' },
+        { id: 'ait-welcome-message',  name: 'Welcome Message',       credits: 2 },
+        { id: 'ait-moderation',       name: 'Context Moderation',    credits: 10 },
+        { id: 'ait-upload-pdf',       name: 'Upload — PDF',          credits: 10 },
+        { id: 'ait-upload-image',     name: 'Upload — Image',        credits: 10 },
+        { id: 'ait-upload-audio',     name: 'Upload — Audio',        credits: 25 },
+        { id: 'ait-upload-video',     name: 'Upload — Video',        credits: 20 },
+        { id: 'ait-mindmaps',         name: 'Mindmaps',              credits: 35 },
+        { id: 'ait-chapter-summary',  name: 'Course Chapter Summary', credits: 10 },
+        { id: 'ait-flashcards',       name: 'Flashcards Deck',       credits: 7 },
+        { id: 'ait-quiz',             name: 'Quiz',                  credits: 7 },
+        { id: 'ait-podcast',          name: 'Podcast',               credits: 50 },
+        { id: 'ait-audio-overview',   name: 'Audio Overview',        credits: 75 },
+      ],
+    },
   ],
-  educatorCaseTypes: [
-    { id: 'full',    name: 'Full Cases',            credits: 30,  info: 'Comprehensive patient cases involving five stations — Focused History, Physical Examination, Assessment, Diagnostic Tests, and SOAP Note — designed for complete clinical assessment.' },
-    { id: 'pd',      name: 'PD Cases',              credits: 15,  info: 'Focused history and physical examination cases, designed to strengthen your information gathering and physical exam skills.' },
-    { id: 'single',  name: 'Single Station Cases',  credits: 10,  info: 'Targeted patient cases involving a single station — such as Focused History, Assessment, Patient Education, Professionalism, or others — designed to help you build specific clinical skills.' },
-  ],
-  chartColors: ['color-0', 'color-1', 'color-2', 'color-3', 'color-4'],
 };
 
 /* ===== State ===== */
@@ -23,34 +91,31 @@ const state = {
   educatorCount: 10,
   usageScope: 'monthly', // 'monthly' or 'total'
   learnerCases: {
-    full:    { cases: 0 },
-    pd:      { cases: 0 },
-    single:  { cases: 5 },
-    circuit: { cases: 0 },
-    cdss:    { cases: 0 },
+    'aics-full': { cases: 0 }, 'aics-pd': { cases: 0 }, 'aics-single': { cases: 5 },
+    'aics-circuit': { cases: 0 }, 'aics-cdss': { cases: 0 },
+    'ait-flashcards': { cases: 0 }, 'ait-quiz': { cases: 0 },
+    'ait-summary': { cases: 0 },
   },
   educatorCases: {
-    full:    { cases: 50 },
-    pd:      { cases: 0 },
-    single:  { cases: 0 },
+    'aics-full': { cases: 50 }, 'aics-pd': { cases: 0 }, 'aics-single': { cases: 0 },
+    'ait-profile-summary': { cases: 0 }, 'ait-welcome-message': { cases: 0 },
+    'ait-moderation': { cases: 0 }, 'ait-upload-pdf': { cases: 0 },
+    'ait-upload-image': { cases: 0 }, 'ait-upload-audio': { cases: 0 },
+    'ait-upload-video': { cases: 0 }, 'ait-mindmaps': { cases: 0 },
+    'ait-chapter-summary': { cases: 0 }, 'ait-flashcards': { cases: 0 },
+    'ait-quiz': { cases: 0 }, 'ait-podcast': { cases: 0 },
+    'ait-audio-overview': { cases: 0 },
   },
 };
 
 /* ===== Formatting ===== */
 const fmtCurrency = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
+  style: 'currency', currency: 'USD',
+  minimumFractionDigits: 2, maximumFractionDigits: 2,
 });
 
-const fmtNumber = new Intl.NumberFormat('en-US', {
-  maximumFractionDigits: 1,
-});
-
-const fmtInt = new Intl.NumberFormat('en-US', {
-  maximumFractionDigits: 0,
-});
+const fmtNumber = new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 });
+const fmtInt = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
 
 /* ===== DOM References ===== */
 let dom = {};
@@ -60,8 +125,8 @@ document.documentElement.classList.remove('no-js');
 
 document.addEventListener('DOMContentLoaded', () => {
   cacheDom();
-  generateCaseRows('learner');
-  generateCaseRows('educator');
+  generateAllProducts('learner');
+  generateAllProducts('educator');
   bindEvents();
   recalculate();
   initRevealObserver();
@@ -87,71 +152,93 @@ function cacheDom() {
     summaryEducatorCredits: document.getElementById('summary-educator-credits'),
     learnerChart: document.getElementById('learner-chart'),
     educatorChart: document.getElementById('educator-chart'),
-    learnerCasesContainer: document.getElementById('learner-cases'),
-    educatorCasesContainer: document.getElementById('educator-cases'),
+    learnerProductsContainer: document.getElementById('learner-products'),
+    educatorProductsContainer: document.getElementById('educator-products'),
   };
 }
 
-/* ===== Generate Case Type Rows ===== */
-function generateCaseRows(panel) {
-  const caseTypes = panel === 'learner' ? CONFIG.learnerCaseTypes : CONFIG.educatorCaseTypes;
+/* ===== Generate Product Sections ===== */
+function generateAllProducts(panel) {
+  const container = panel === 'learner' ? dom.learnerProductsContainer : dom.educatorProductsContainer;
   const casesState = panel === 'learner' ? state.learnerCases : state.educatorCases;
-  const container = panel === 'learner' ? dom.learnerCasesContainer : dom.educatorCasesContainer;
-  const personLabel = panel === 'learner' ? 'Learner' : 'Educator';
 
-  caseTypes.forEach((ct) => {
-    const row = document.createElement('div');
-    row.className = 'case-row';
-    row.dataset.type = ct.id;
-    row.dataset.panel = panel;
+  CONFIG.products.forEach((product) => {
+    const types = panel === 'learner' ? product.learnerTypes : product.educatorTypes;
+    if (!types.length) return;
 
-    const infoHtml = ct.info
-      ? `<span class="info-tip" data-tip="${ct.info}"><span class="info-icon">i</span><span class="info-tooltip">${ct.info}</span></span>`
-      : '';
+    // Product badge
+    const badge = document.createElement('p');
+    badge.className = 'panel-product';
+    badge.textContent = product.name;
+    container.appendChild(badge);
 
-    row.innerHTML = `
-      <span class="case-name">${ct.name}${infoHtml}</span>
-      <div class="case-input">
-        <div class="case-slider-group">
-          <input type="range" class="case-cases-slider" value="${casesState[ct.id].cases}" min="0" max="200" step="1"
-                 data-panel="${panel}" data-type="${ct.id}" data-field="cases">
-          <input type="number" class="case-cases-input" value="${casesState[ct.id].cases}" min="0" step="1"
-                 data-panel="${panel}" data-type="${ct.id}" data-field="cases">
-        </div>
-      </div>
-      <span class="case-credits mono" data-credits="${panel}-${ct.id}">0</span>
+    // Case types table
+    const caseTypesDiv = document.createElement('div');
+    caseTypesDiv.className = 'case-types';
+
+    // Header row
+    const header = document.createElement('div');
+    header.className = 'case-header';
+    header.innerHTML = `
+      <span class="case-col-name">Feature</span>
+      <span class="case-col-input">Usage</span>
+      <span class="case-col-total">AI Credits</span>
     `;
+    caseTypesDiv.appendChild(header);
 
-    container.appendChild(row);
+    // Feature rows
+    types.forEach((ct) => {
+      const row = document.createElement('div');
+      row.className = 'case-row';
+      row.dataset.type = ct.id;
+      row.dataset.panel = panel;
+
+      const infoHtml = ct.info
+        ? `<span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">${ct.info}</span></span>`
+        : '';
+
+      row.innerHTML = `
+        <span class="case-name">${ct.name}${infoHtml}</span>
+        <div class="case-input">
+          <div class="case-slider-group">
+            <input type="range" class="case-cases-slider" value="${casesState[ct.id].cases}" min="0" max="200" step="1"
+                   data-panel="${panel}" data-type="${ct.id}" data-field="cases">
+            <input type="number" class="case-cases-input" value="${casesState[ct.id].cases}" min="0" step="1"
+                   data-panel="${panel}" data-type="${ct.id}" data-field="cases">
+          </div>
+        </div>
+        <span class="case-credits mono" data-credits="${panel}-${ct.id}">0</span>
+      `;
+      caseTypesDiv.appendChild(row);
+    });
+
+    // Total row per product
+    const totalRow = document.createElement('div');
+    totalRow.className = 'case-row total-row';
+    totalRow.innerHTML = `
+      <span class="case-name">Total</span>
+      <div class="case-input">
+        <span class="mono" data-total-cases="${panel}-${product.id}">0</span>
+      </div>
+      <span class="case-credits mono" data-total-credits="${panel}-${product.id}">0</span>
+    `;
+    caseTypesDiv.appendChild(totalRow);
+
+    container.appendChild(caseTypesDiv);
   });
-
-  // Total row
-  const totalRow = document.createElement('div');
-  totalRow.className = 'case-row total-row';
-  totalRow.innerHTML = `
-    <span class="case-name">Total</span>
-    <div class="case-input">
-      <span class="mono" data-total-cases="${panel}">0</span>
-    </div>
-    <span class="case-credits mono" data-total-credits="${panel}">0</span>
-  `;
-  container.appendChild(totalRow);
 }
 
 /* ===== Event Binding ===== */
 function bindEvents() {
-  // Slider-input sync
   linkSliderInput(dom.learnerCountSlider, dom.learnerCount, 'learnerCount');
   linkSliderInput(dom.monthsSlider, dom.months, 'months');
   linkSliderInput(dom.educatorCountSlider, dom.educatorCount, 'educatorCount');
 
-  // Brand link scroll to top
   document.getElementById('brand-link').addEventListener('click', (e) => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  // Usage scope toggle
   const scopeToggle = document.getElementById('usage-scope-toggle');
   scopeToggle.addEventListener('click', (e) => {
     const btn = e.target.closest('.scope-btn');
@@ -162,18 +249,14 @@ function bindEvents() {
     recalculate();
   });
 
-  // Case type inputs (event delegation) — handles both sliders and number inputs
   document.addEventListener('input', (e) => {
     const isSlider = e.target.matches('.case-cases-slider');
     const isInput = e.target.matches('.case-cases-input');
-
     if (isSlider || isInput) {
       const { panel, type, field } = e.target.dataset;
       const casesState = panel === 'learner' ? state.learnerCases : state.educatorCases;
       const val = Number(e.target.value) || 0;
       casesState[type][field] = val;
-
-      // Sync the paired slider <-> input
       const container = e.target.closest('.case-slider-group');
       if (container) {
         if (isSlider) {
@@ -184,7 +267,6 @@ function bindEvents() {
           if (rangeInput) rangeInput.value = val;
         }
       }
-
       recalculate();
     }
   });
@@ -196,7 +278,6 @@ function linkSliderInput(slider, input, stateKey) {
     state[stateKey] = Number(slider.value);
     recalculate();
   });
-
   input.addEventListener('input', () => {
     const val = Math.max(Number(input.min), Math.min(Number(input.max), Number(input.value) || 1));
     slider.value = val;
@@ -213,96 +294,102 @@ function recalculate() {
   updatePanelUI('learner', learnerResult);
   updatePanelUI('educator', educatorResult);
 
-  // Summary
   const grandTotal = learnerResult.totalPrice + educatorResult.totalPrice;
-
   dom.summaryLearner.textContent = fmtCurrency.format(learnerResult.totalPrice);
   dom.summaryEducator.textContent = fmtCurrency.format(educatorResult.totalPrice);
   dom.summaryTotal.textContent = fmtCurrency.format(grandTotal);
   dom.summaryLearnerCredits.textContent = fmtInt.format(learnerResult.creditsPerPerson);
   dom.summaryEducatorCredits.textContent = fmtInt.format(educatorResult.creditsPerPerson);
 
-  // Charts
-  renderChart(dom.learnerChart, CONFIG.learnerCaseTypes, learnerResult.perTypeCredits);
-  renderChart(dom.educatorChart, CONFIG.educatorCaseTypes, educatorResult.perTypeCredits);
+  // Charts — combine all feature types across products
+  const allLearnerTypes = CONFIG.products.flatMap(p => p.learnerTypes);
+  const allEducatorTypes = CONFIG.products.flatMap(p => p.educatorTypes);
+  renderChart(dom.learnerChart, allLearnerTypes, learnerResult.perTypeCredits);
+  renderChart(dom.educatorChart, allEducatorTypes, educatorResult.perTypeCredits);
 }
 
 function calculatePanel(panel) {
-  const caseTypes = panel === 'learner' ? CONFIG.learnerCaseTypes : CONFIG.educatorCaseTypes;
   const casesState = panel === 'learner' ? state.learnerCases : state.educatorCases;
   const personCount = panel === 'learner' ? state.learnerCount : state.educatorCount;
-  const months = state.months;
-  const monthsMultiplier = state.usageScope === 'total' ? months : 1;
+  const monthsMultiplier = state.usageScope === 'total' ? state.months : 1;
 
   let totalCases = 0;
   let creditsPerPerson = 0;
   const perTypeCredits = {};
+  const perProductCases = {};
+  const perProductCredits = {};
 
-  caseTypes.forEach((ct) => {
-    const cases = casesState[ct.id].cases;
-    const credits = cases * ct.credits;
-    perTypeCredits[ct.id] = credits;
-    creditsPerPerson += credits;
-    totalCases += cases;
+  CONFIG.products.forEach((product) => {
+    const types = panel === 'learner' ? product.learnerTypes : product.educatorTypes;
+    let productCases = 0;
+    let productCredits = 0;
+
+    types.forEach((ct) => {
+      const cases = casesState[ct.id].cases;
+      const credits = cases * ct.credits;
+      perTypeCredits[ct.id] = credits;
+      creditsPerPerson += credits;
+      totalCases += cases;
+      productCases += cases;
+      productCredits += credits;
+    });
+
+    perProductCases[product.id] = productCases;
+    perProductCredits[product.id] = productCredits;
   });
 
-  // Customer price: total credits / 75 = dollar amount
   const pricePerPerson = creditsPerPerson / CONFIG.creditsPerDollar;
   const totalPrice = pricePerPerson * personCount * monthsMultiplier;
 
-  return {
-    creditsPerPerson,
-    pricePerPerson,
-    totalPrice,
-    perTypeCredits,
-    totalCases,
-  };
+  return { creditsPerPerson, pricePerPerson, totalPrice, perTypeCredits, perProductCases, perProductCredits, totalCases };
 }
 
 /* ===== UI Update ===== */
 function updatePanelUI(panel, result) {
-  const caseTypes = panel === 'learner' ? CONFIG.learnerCaseTypes : CONFIG.educatorCaseTypes;
   const casesState = panel === 'learner' ? state.learnerCases : state.educatorCases;
 
-  // Credits per person
   const creditsEl = panel === 'learner' ? dom.learnerCredits : dom.educatorCredits;
   creditsEl.textContent = fmtInt.format(result.creditsPerPerson);
 
-  // Total price
   const totalEl = panel === 'learner' ? dom.learnerTotal : dom.educatorTotal;
   totalEl.textContent = fmtCurrency.format(result.totalPrice);
 
-  // Update case rows — show credits per feature
-  caseTypes.forEach((ct) => {
-    const credits = result.perTypeCredits[ct.id] || 0;
+  // Update per-feature credits
+  CONFIG.products.forEach((product) => {
+    const types = panel === 'learner' ? product.learnerTypes : product.educatorTypes;
 
-    const creditsDisplay = document.querySelector(`[data-credits="${panel}-${ct.id}"]`);
-    if (creditsDisplay) creditsDisplay.textContent = fmtInt.format(credits);
+    types.forEach((ct) => {
+      const credits = result.perTypeCredits[ct.id] || 0;
+      const creditsDisplay = document.querySelector(`[data-credits="${panel}-${ct.id}"]`);
+      if (creditsDisplay) creditsDisplay.textContent = fmtInt.format(credits);
 
-    const row = document.querySelector(`.case-row[data-type="${ct.id}"][data-panel="${panel}"]`);
-    if (row) {
-      row.classList.toggle('zero-weight', casesState[ct.id].cases === 0);
-    }
+      const row = document.querySelector(`.case-row[data-type="${ct.id}"][data-panel="${panel}"]`);
+      if (row) row.classList.toggle('zero-weight', casesState[ct.id].cases === 0);
+    });
+
+    // Per-product totals
+    const totalCasesEl = document.querySelector(`[data-total-cases="${panel}-${product.id}"]`);
+    if (totalCasesEl) totalCasesEl.textContent = fmtNumber.format(result.perProductCases[product.id]);
+
+    const totalCreditsEl = document.querySelector(`[data-total-credits="${panel}-${product.id}"]`);
+    if (totalCreditsEl) totalCreditsEl.textContent = fmtInt.format(result.perProductCredits[product.id]);
   });
-
-  // Total row
-  const totalCasesEl = document.querySelector(`[data-total-cases="${panel}"]`);
-  if (totalCasesEl) totalCasesEl.textContent = fmtNumber.format(result.totalCases);
-
-  const totalCreditsEl = document.querySelector(`[data-total-credits="${panel}"]`);
-  if (totalCreditsEl) totalCreditsEl.textContent = fmtInt.format(result.creditsPerPerson);
 }
 
 /* ===== Bar Chart ===== */
-function renderChart(container, caseTypes, perTypeCredits) {
+function renderChart(container, allTypes, perTypeCredits) {
   container.innerHTML = '';
+  const activeTypes = allTypes.filter(ct => (perTypeCredits[ct.id] || 0) > 0);
+  if (!activeTypes.length) {
+    container.innerHTML = '<p style="color: var(--color-text-dim); font-size: 0.82rem;">Set usage above to see breakdown</p>';
+    return;
+  }
 
-  const maxCredits = Math.max(...caseTypes.map(ct => perTypeCredits[ct.id] || 0), 1);
+  const maxCredits = Math.max(...activeTypes.map(ct => perTypeCredits[ct.id] || 0), 1);
 
-  caseTypes.forEach((ct, i) => {
+  activeTypes.forEach((ct, i) => {
     const credits = perTypeCredits[ct.id] || 0;
     const pct = (credits / maxCredits) * 100;
-
     const row = document.createElement('div');
     row.className = 'chart-bar-row';
     row.innerHTML = `
@@ -322,7 +409,6 @@ function renderChart(container, caseTypes, perTypeCredits) {
 function initRevealObserver() {
   const reveals = document.querySelectorAll('.reveal');
   if (!reveals.length) return;
-
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -334,6 +420,5 @@ function initRevealObserver() {
     },
     { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
   );
-
   reveals.forEach((el) => observer.observe(el));
 }
