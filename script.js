@@ -174,6 +174,7 @@ function generateAllProducts(panel) {
       <span class="case-col-name">Feature</span>
       <span class="case-col-input">Usage</span>
       <span class="case-col-total">AI Credits</span>
+      <span class="case-col-cost">Cost</span>
     `;
     caseTypesDiv.appendChild(header);
 
@@ -199,6 +200,7 @@ function generateAllProducts(panel) {
           </div>
         </div>
         <span class="case-credits mono" data-credits="${panel}-${ct.id}">0</span>
+        <span class="case-cost mono" data-cost="${panel}-${ct.id}">$0.00</span>
       `;
       caseTypesDiv.appendChild(row);
     });
@@ -212,6 +214,7 @@ function generateAllProducts(panel) {
         <span class="mono" data-total-cases="${panel}-${product.id}">0</span>
       </div>
       <span class="case-credits mono" data-total-credits="${panel}-${product.id}">0</span>
+      <span class="case-cost mono" data-total-cost="${panel}-${product.id}">$0.00</span>
     `;
     caseTypesDiv.appendChild(totalRow);
 
@@ -365,6 +368,9 @@ function updatePanelUI(panel, result) {
       const creditsDisplay = document.querySelector(`[data-credits="${panel}-${ct.id}"]`);
       if (creditsDisplay) creditsDisplay.textContent = fmtInt.format(credits);
 
+      const costDisplay = document.querySelector(`[data-cost="${panel}-${ct.id}"]`);
+      if (costDisplay) costDisplay.textContent = fmtCurrency.format(credits / CONFIG.baseCreditRate);
+
       const row = document.querySelector(`.case-row[data-type="${ct.id}"][data-panel="${panel}"]`);
       if (row) row.classList.toggle('zero-weight', casesState[ct.id].cases === 0);
     });
@@ -375,6 +381,9 @@ function updatePanelUI(panel, result) {
 
     const totalCreditsEl = document.querySelector(`[data-total-credits="${panel}-${product.id}"]`);
     if (totalCreditsEl) totalCreditsEl.textContent = fmtInt.format(result.perProductCredits[product.id]);
+
+    const totalCostEl2 = document.querySelector(`[data-total-cost="${panel}-${product.id}"]`);
+    if (totalCostEl2) totalCostEl2.textContent = fmtCurrency.format(result.perProductCredits[product.id] / CONFIG.baseCreditRate);
   });
 }
 
