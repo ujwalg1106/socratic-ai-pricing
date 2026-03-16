@@ -42,7 +42,7 @@
 
 /* ===== Configuration ===== */
 const CONFIG = {
-  creditsPerDollar: 50, // $1 = 50 AI Credits (50% gross margin)
+  creditsPerDollar: 20, // $1 = 20 AI Credits (80% gross margin)
   chartColors: ['color-0', 'color-1', 'color-2', 'color-3', 'color-4', 'color-0', 'color-1', 'color-2', 'color-3', 'color-4'],
   products: [
     {
