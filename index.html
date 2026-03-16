@@ -16,10 +16,17 @@
   <!-- Password Lock Screen -->
   <div id="lock-screen" class="lock-screen">
     <div class="lock-card">
-      <img src="S-Logo.png" alt="Socratic AI" class="lock-logo">
-      <p class="lock-label">Enter password to continue</p>
-      <input type="password" id="lock-input" class="lock-input" placeholder="Password" autofocus>
-      <button id="lock-btn" class="lock-btn">Unlock</button>
+      <div class="lock-brand">
+        <img src="White_Symbol.png" alt="Socratic AI" class="lock-logo">
+        <span class="lock-brand-name">Socratic AI</span>
+      </div>
+      <h2 class="lock-title">Sign In</h2>
+      <p class="lock-label">Enter your password to access the pricing calculator</p>
+      <div class="lock-field">
+        <label for="lock-input" class="lock-field-label">Password</label>
+        <input type="password" id="lock-input" class="lock-input" placeholder="Enter password" autofocus>
+      </div>
+      <button id="lock-btn" class="lock-btn">Sign In</button>
       <p id="lock-error" class="lock-error"></p>
     </div>
   </div>

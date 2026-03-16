@@ -9,6 +9,9 @@
     return;
   }
 
+  // Prevent scrolling behind lock screen
+  document.documentElement.style.overflow = 'hidden';
+
   async function sha256(str) {
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
     return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
@@ -21,6 +24,7 @@
     if (hash === PASS_HASH) {
       sessionStorage.setItem('unlocked', 'true');
       document.getElementById('lock-screen').classList.add('hidden');
+      document.documentElement.style.overflow = '';
     } else {
       error.textContent = 'Incorrect password';
       input.value = '';
@@ -46,14 +50,14 @@ const CONFIG = {
       name: 'AI Clinical Simulation',
       learnerTypes: [
         { id: 'aics-full',    name: 'Full Cases',            credits: 175,  info: 'Comprehensive patient cases involving five stations — Focused History, Physical Examination, Assessment, Diagnostic Tests, and SOAP Note — designed for complete clinical assessment.' },
-        { id: 'aics-pd',      name: 'PD Cases',              credits: 150,  info: 'Focused history and physical examination cases, designed to strengthen your information gathering and physical exam skills.' },
+        { id: 'aics-pd',      name: 'Physical Diagnosis Cases',              credits: 150,  info: 'Focused history and physical examination cases, designed to strengthen your information gathering and physical exam skills.' },
         { id: 'aics-single',  name: 'Single Station Cases',  credits: 75,   info: 'Targeted patient cases involving a single station — such as Focused History, Assessment, Patient Education, Professionalism, or others — designed to help you build specific clinical skills.' },
         { id: 'aics-circuit', name: 'Circuits',              credits: 375,  info: 'Clinical circuits of up to eight single-station cases — each with a different scenario — designed to simulate exam flows, reinforce clinical skills, and assess performance across clinical scenarios.' },
-        { id: 'aics-cdss',    name: 'CDSS',                  credits: 1,    info: 'Socratic-style Clinical Decision Support System to help the learner during the simulation.' },
+        { id: 'aics-cdss',    name: 'Clinical Decision Support System',                  credits: 1,    info: 'Socratic-style Clinical Decision Support System to help the learner during the simulation.' },
       ],
       educatorTypes: [
         { id: 'aics-full',    name: 'Full Cases',            credits: 30,  info: 'Comprehensive patient cases involving five stations — Focused History, Physical Examination, Assessment, Diagnostic Tests, and SOAP Note — designed for complete clinical assessment.' },
-        { id: 'aics-pd',      name: 'PD Cases',              credits: 15,  info: 'Focused history and physical examination cases, designed to strengthen your information gathering and physical exam skills.' },
+        { id: 'aics-pd',      name: 'Physical Diagnosis Cases',              credits: 15,  info: 'Focused history and physical examination cases, designed to strengthen your information gathering and physical exam skills.' },
         { id: 'aics-single',  name: 'Single Station Cases',  credits: 10,  info: 'Targeted patient cases involving a single station — such as Focused History, Assessment, Patient Education, Professionalism, or others — designed to help you build specific clinical skills.' },
       ],
     },
@@ -61,24 +65,10 @@ const CONFIG = {
       id: 'ait',
       name: 'AI Tutor',
       learnerTypes: [
-        { id: 'ait-flashcards',       name: 'Flashcards Deck',      credits: 15 },
-        { id: 'ait-quiz',             name: 'Quiz',                 credits: 15 },
-        { id: 'ait-summary',          name: 'Summary',              credits: 15 },
+        { id: 'ait-tutoring',          name: 'AI Tutoring Hours',  credits: 300 },
       ],
       educatorTypes: [
-        { id: 'ait-profile-summary',  name: 'Profile Summary',       credits: 2,  info: 'Group and student profile summary generation.' },
-        { id: 'ait-welcome-message',  name: 'Welcome Message',       credits: 2 },
-        { id: 'ait-moderation',       name: 'Context Moderation',    credits: 10 },
-        { id: 'ait-upload-pdf',       name: 'Upload — PDF',          credits: 10 },
-        { id: 'ait-upload-image',     name: 'Upload — Image',        credits: 10 },
-        { id: 'ait-upload-audio',     name: 'Upload — Audio',        credits: 25 },
-        { id: 'ait-upload-video',     name: 'Upload — Video',        credits: 20 },
-        { id: 'ait-mindmaps',         name: 'Mindmaps',              credits: 35 },
-        { id: 'ait-chapter-summary',  name: 'Course Chapter Summary', credits: 10 },
-        { id: 'ait-flashcards',       name: 'Flashcards Deck',       credits: 7 },
-        { id: 'ait-quiz',             name: 'Quiz',                  credits: 7 },
-        { id: 'ait-podcast',          name: 'Podcast',               credits: 50 },
-        { id: 'ait-audio-overview',   name: 'Audio Overview',        credits: 75 },
+        { id: 'ait-course-chapter',   name: 'AI Tutors / Course Chapters',  credits: 500 },
       ],
     },
   ],
@@ -93,18 +83,11 @@ const state = {
   learnerCases: {
     'aics-full': { cases: 0 }, 'aics-pd': { cases: 0 }, 'aics-single': { cases: 5 },
     'aics-circuit': { cases: 0 }, 'aics-cdss': { cases: 0 },
-    'ait-flashcards': { cases: 0 }, 'ait-quiz': { cases: 0 },
-    'ait-summary': { cases: 0 },
+    'ait-tutoring': { cases: 0 },
   },
   educatorCases: {
     'aics-full': { cases: 50 }, 'aics-pd': { cases: 0 }, 'aics-single': { cases: 0 },
-    'ait-profile-summary': { cases: 0 }, 'ait-welcome-message': { cases: 0 },
-    'ait-moderation': { cases: 0 }, 'ait-upload-pdf': { cases: 0 },
-    'ait-upload-image': { cases: 0 }, 'ait-upload-audio': { cases: 0 },
-    'ait-upload-video': { cases: 0 }, 'ait-mindmaps': { cases: 0 },
-    'ait-chapter-summary': { cases: 0 }, 'ait-flashcards': { cases: 0 },
-    'ait-quiz': { cases: 0 }, 'ait-podcast': { cases: 0 },
-    'ait-audio-overview': { cases: 0 },
+    'ait-course-chapter': { cases: 0 },
   },
 };
 
@@ -131,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
   recalculate();
   initRevealObserver();
 });
+
 
 function cacheDom() {
   dom = {

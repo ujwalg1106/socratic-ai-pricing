@@ -71,6 +71,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .lock-screen.hidden {
@@ -81,24 +82,62 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  padding: 48px 40px;
+  padding: 48px 44px 40px;
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  width: 340px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  width: 400px;
+  max-width: calc(100vw - 32px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.03);
+}
+
+.lock-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
 }
 
 .lock-logo {
-  height: 32px;
-  width: auto;
+  height: 36px;
+  width: 36px;
+  object-fit: contain;
+}
+
+.lock-brand-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.lock-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
   margin-bottom: 8px;
+  letter-spacing: -0.02em;
 }
 
 .lock-label {
   font-size: 0.85rem;
   color: var(--color-text-muted);
+  margin-bottom: 28px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.lock-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.lock-field-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
 }
 
 .lock-input {
@@ -108,10 +147,13 @@ body {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   color: var(--color-text);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.95rem;
-  text-align: center;
-  transition: border-color var(--transition);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.lock-input::placeholder {
+  color: var(--color-text-dim);
 }
 
 .lock-input:focus {
@@ -122,27 +164,35 @@ body {
 
 .lock-btn {
   width: 100%;
-  padding: 12px;
+  padding: 13px;
   background: var(--color-accent);
   border: none;
   border-radius: var(--radius-sm);
   color: #fff;
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background var(--transition);
+  transition: background var(--transition), transform 0.1s ease, box-shadow var(--transition);
+  letter-spacing: 0.01em;
 }
 
 .lock-btn:hover {
   background: var(--color-accent-light);
+  box-shadow: 0 4px 16px rgba(74, 95, 224, 0.3);
+}
+
+.lock-btn:active {
+  transform: scale(0.98);
 }
 
 .lock-error {
   font-size: 0.8rem;
   color: #e17055;
   min-height: 1.2em;
+  margin-top: 16px;
 }
+
 
 /* ===== No-JS Fallback ===== */
 .no-js .reveal {
@@ -175,6 +225,7 @@ body {
   right: 0;
   z-index: 100;
 }
+
 
 body {
   padding-top: 65px;
@@ -523,6 +574,7 @@ input[type="range"]:focus {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   pointer-events: none;
 }
+
 
 .info-tip:hover .info-tooltip {
   display: block;
