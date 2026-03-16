@@ -42,7 +42,7 @@
 
 /* ===== Configuration ===== */
 const CONFIG = {
-  creditsPerDollar: 20, // $1 = 20 AI Credits (80% gross margin)
+  baseCreditRate: 100, // 100 raw credits = $1 cost
   chartColors: ['color-0', 'color-1', 'color-2', 'color-3', 'color-4', 'color-0', 'color-1', 'color-2', 'color-3', 'color-4'],
   products: [
     {
@@ -79,6 +79,7 @@ const state = {
   learnerCount: 1000,
   months: 6,
   educatorCount: 10,
+  marginPct: 80, // margin percentage
   usageScope: 'monthly', // 'monthly' or 'total'
   learnerCases: {
     'aics-full': { cases: 0 }, 'aics-pd': { cases: 0 }, 'aics-single': { cases: 5 },
@@ -119,6 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
 function cacheDom() {
   dom = {
     app: document.getElementById('app'),
+    margin: document.getElementById('margin'),
+    marginSlider: document.getElementById('margin-slider'),
     learnerCount: document.getElementById('learner-count'),
     learnerCountSlider: document.getElementById('learner-count-slider'),
     months: document.getElementById('months'),
@@ -126,8 +129,12 @@ function cacheDom() {
     educatorCount: document.getElementById('educator-count'),
     educatorCountSlider: document.getElementById('educator-count-slider'),
     learnerCredits: document.getElementById('learner-credits'),
+    learnerCost: document.getElementById('learner-cost'),
+    learnerTotalCost: document.getElementById('learner-total-cost'),
     learnerTotal: document.getElementById('learner-total'),
     educatorCredits: document.getElementById('educator-credits'),
+    educatorCost: document.getElementById('educator-cost'),
+    educatorTotalCost: document.getElementById('educator-total-cost'),
     educatorTotal: document.getElementById('educator-total'),
     summaryLearner: document.getElementById('summary-learner'),
     summaryEducator: document.getElementById('summary-educator'),
@@ -214,6 +221,7 @@ function generateAllProducts(panel) {
 
 /* ===== Event Binding ===== */
 function bindEvents() {
+  linkSliderInput(dom.marginSlider, dom.margin, 'marginPct');
   linkSliderInput(dom.learnerCountSlider, dom.learnerCount, 'learnerCount');
   linkSliderInput(dom.monthsSlider, dom.months, 'months');
   linkSliderInput(dom.educatorCountSlider, dom.educatorCount, 'educatorCount');
@@ -263,7 +271,8 @@ function linkSliderInput(slider, input, stateKey) {
     recalculate();
   });
   input.addEventListener('input', () => {
-    const val = Math.max(Number(input.min), Math.min(Number(input.max), Number(input.value) || 1));
+    const raw = Number(input.value);
+    const val = Math.max(Number(input.min), Math.min(Number(input.max), isNaN(raw) ? 0 : raw));
     slider.value = val;
     state[stateKey] = val;
     recalculate();
@@ -322,10 +331,13 @@ function calculatePanel(panel) {
     perProductCredits[product.id] = productCredits;
   });
 
-  const pricePerPerson = creditsPerPerson / CONFIG.creditsPerDollar;
+  const costPerPerson = creditsPerPerson / CONFIG.baseCreditRate;
+  const marginFraction = state.marginPct / 100;
+  const pricePerPerson = marginFraction >= 1 ? costPerPerson : costPerPerson / (1 - marginFraction);
+  const totalCost = costPerPerson * personCount * monthsMultiplier;
   const totalPrice = pricePerPerson * personCount * monthsMultiplier;
 
-  return { creditsPerPerson, pricePerPerson, totalPrice, perTypeCredits, perProductCases, perProductCredits, totalCases };
+  return { creditsPerPerson, costPerPerson, pricePerPerson, totalCost, totalPrice, perTypeCredits, perProductCases, perProductCredits, totalCases };
 }
 
 /* ===== UI Update ===== */
@@ -334,6 +346,12 @@ function updatePanelUI(panel, result) {
 
   const creditsEl = panel === 'learner' ? dom.learnerCredits : dom.educatorCredits;
   creditsEl.textContent = fmtInt.format(result.creditsPerPerson);
+
+  const costEl = panel === 'learner' ? dom.learnerCost : dom.educatorCost;
+  costEl.textContent = fmtCurrency.format(result.costPerPerson);
+
+  const totalCostEl = panel === 'learner' ? dom.learnerTotalCost : dom.educatorTotalCost;
+  totalCostEl.textContent = fmtCurrency.format(result.totalCost);
 
   const totalEl = panel === 'learner' ? dom.learnerTotal : dom.educatorTotal;
   totalEl.textContent = fmtCurrency.format(result.totalPrice);

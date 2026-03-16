@@ -46,11 +46,20 @@
     <!-- Common Inputs -->
     <section class="common-inputs">
       <div class="container">
+        <div class="base-rate-info">$1 = 100 AI Credits</div>
         <div class="input-row">
           <label for="months">Duration (Months)</label>
           <div class="slider-input">
             <input type="range" id="months-slider" min="1" max="60" value="6" step="1">
             <input type="number" id="months" value="6" min="1" max="60">
+          </div>
+        </div>
+        <div class="input-row">
+          <label for="margin">Margin (%)</label>
+          <div class="slider-input">
+            <input type="range" id="margin-slider" min="0" max="95" value="80" step="1">
+            <input type="number" id="margin" value="80" min="0" max="95">
+            <span class="markup-suffix">%</span>
           </div>
         </div>
         <div class="input-row">
@@ -92,6 +101,14 @@
               <span>AI Credits per Learner</span>
               <span class="mono" id="learner-credits">0</span>
             </div>
+            <div class="summary-row">
+              <span>Cost per Learner</span>
+              <span class="mono" id="learner-cost">$0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Total Learners Cost</span>
+              <span class="mono" id="learner-total-cost">$0.00</span>
+            </div>
             <div class="summary-row total">
               <span>Total Learners Price</span>
               <span class="mono" id="learner-total">$0.00</span>
@@ -123,6 +140,14 @@
             <div class="summary-row">
               <span>AI Credits per Educator</span>
               <span class="mono" id="educator-credits">0</span>
+            </div>
+            <div class="summary-row">
+              <span>Cost per Educator</span>
+              <span class="mono" id="educator-cost">$0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Total Educators Cost</span>
+              <span class="mono" id="educator-total-cost">$0.00</span>
             </div>
             <div class="summary-row total">
               <span>Total Educators Price</span>

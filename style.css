@@ -272,6 +272,19 @@ body {
   max-width: 500px;
 }
 
+.base-rate-info {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-accent-light);
+  background: var(--color-accent-glow);
+  border: 1px solid rgba(74, 95, 224, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  margin-bottom: 20px;
+}
+
 /* ===== Scope Toggle ===== */
 .scope-toggle {
   display: flex;
@@ -435,6 +448,13 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 100px;
   flex-shrink: 0;
   text-align: center;
+}
+
+.markup-suffix {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  flex-shrink: 0;
 }
 
 /* ===== Range Slider ===== */
