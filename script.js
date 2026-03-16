@@ -56,8 +56,8 @@ const CONFIG = {
         { id: 'aics-cdss',    name: 'Clinical Decision Support System',                  credits: 1,    info: 'Socratic-style Clinical Decision Support System to help the learner during the simulation.' },
       ],
       educatorTypes: [
-        { id: 'aics-full',    name: 'Full Cases',            credits: 30,  info: 'Comprehensive patient cases involving five stations — Focused History, Physical Examination, Assessment, Diagnostic Tests, and SOAP Note — designed for complete clinical assessment.' },
-        { id: 'aics-pd',      name: 'Physical Diagnosis Cases',              credits: 15,  info: 'Focused history and physical examination cases, designed to strengthen your information gathering and physical exam skills.' },
+        { id: 'aics-full',    name: 'Full Cases',            credits: 35,  info: 'Comprehensive patient cases involving five stations — Focused History, Physical Examination, Assessment, Diagnostic Tests, and SOAP Note — designed for complete clinical assessment.' },
+        { id: 'aics-pd',      name: 'Physical Diagnosis Cases',              credits: 20,  info: 'Focused history and physical examination cases, designed to strengthen your information gathering and physical exam skills.' },
         { id: 'aics-single',  name: 'Single Station Cases',  credits: 10,  info: 'Targeted patient cases involving a single station — such as Focused History, Assessment, Patient Education, Professionalism, or others — designed to help you build specific clinical skills.' },
       ],
     },
