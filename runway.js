@@ -68,6 +68,24 @@ function fmtCompact(v) {
   return sign + '$' + abs.toFixed(0);
 }
 
+// Returns "Month N (MonthName YYYY)" — N months from the current month
+function fmtM(n) {
+  const d = new Date();
+  d.setDate(1);
+  d.setMonth(d.getMonth() + n);
+  const name = d.toLocaleString('en-US', { month: 'long' });
+  return `Month ${n} (${name} ${d.getFullYear()})`;
+}
+
+// Short version for KPI cards: "M4 · Jul 2026"
+function fmtMShort(n) {
+  const d = new Date();
+  d.setDate(1);
+  d.setMonth(d.getMonth() + n);
+  const name = d.toLocaleString('en-US', { month: 'short' });
+  return `M${n} · ${name} ${d.getFullYear()}`;
+}
+
 /* ===== Init ===== */
 document.documentElement.classList.remove('no-js');
 
@@ -356,9 +374,9 @@ function getDerivedMetrics(projection) {
     const buffer = zeroMonth ? zeroMonth - breakEvenMonth : 36 - breakEvenMonth;
     verdict = {
       alive: true,
-      text: `✓ Default Alive — MRR reaches break-even at Month ${breakEvenMonth}` +
+      text: `✓ Default Alive — MRR reaches break-even at ${fmtM(breakEvenMonth)}` +
         (zeroMonth
-          ? `, ${buffer} month${buffer !== 1 ? 's' : ''} before cash runs out (Month ${zeroMonth}).`
+          ? `, ${buffer} month${buffer !== 1 ? 's' : ''} before cash runs out (${fmtM(zeroMonth)}).`
           : `. Cash holds for 36+ months.`) +
         ` Current runway: ${currentRunway.toFixed(1)} months.`,
     };
@@ -370,7 +388,7 @@ function getDerivedMetrics(projection) {
   } else {
     verdict = {
       alive: false,
-      text: `✗ Default Dead — Cash runs out at Month ${zeroMonth}, but break-even isn't until Month ${breakEvenMonth}. Need ${fmtCurrency.format(raiseNeeded)} more or ${Math.ceil(state.grossBurn / Math.max(1, state.b2bDealRevenue))} total logos at current pricing.`,
+      text: `✗ Default Dead — Cash runs out at ${fmtM(zeroMonth)}, but break-even isn't until ${fmtM(breakEvenMonth)}. Need ${fmtCurrency.format(raiseNeeded)} more or ${Math.ceil(state.grossBurn / Math.max(1, state.b2bDealRevenue))} total logos at current pricing.`,
     };
   }
 
@@ -419,8 +437,8 @@ function updateInlineStats(metrics) {
       warn.classList.remove('hidden');
       const rm = document.getElementById('raise-month-label');
       const zm = document.getElementById('zero-month-label');
-      if (rm) rm.textContent = state.raiseCloseMonth;
-      if (zm) zm.textContent = metrics.zeroBaseMonth;
+      if (rm) rm.textContent = fmtM(state.raiseCloseMonth);
+      if (zm) zm.textContent = fmtM(metrics.zeroBaseMonth);
     } else {
       warn.classList.add('hidden');
     }
@@ -465,7 +483,7 @@ function updateKPIs(metrics) {
   cls('kpi-arr', 'kpi-card ' + (metrics.arrM12 >= 1000000 ? 'kpi-healthy' : metrics.arrM12 >= 500000 ? 'kpi-warning' : ''));
 
   // Break-even
-  const beVal = metrics.breakEvenMonth !== null ? `Month ${metrics.breakEvenMonth}` : '> 36 mo';
+  const beVal = metrics.breakEvenMonth !== null ? fmtMShort(metrics.breakEvenMonth) : '> 36 mo';
   set('kpi-breakeven-val', beVal);
   cls('kpi-breakeven', 'kpi-card ' + kpiColor(
     metrics.breakEvenMonth !== null ? (36 - metrics.breakEvenMonth) : 0, 24, 12
