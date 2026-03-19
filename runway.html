@@ -59,42 +59,42 @@
           </div>
           <div class="runway-fp-grid">
             <div class="fp-field">
-              <label>Cash in Bank</label>
+              <label>Cash in Bank <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Total cash currently sitting in your bank account. This is your starting point — everything is measured against how long this lasts.</span></span></label>
               <div class="fp-input-wrap">
                 <span class="fp-prefix">$</span>
                 <input type="number" id="cash-balance" value="500000" min="0" step="50000">
               </div>
             </div>
             <div class="fp-field">
-              <label>Monthly Gross Burn</label>
+              <label>Monthly Gross Burn <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Total monthly operating expenses — salaries, infrastructure, software, office, and all other costs — before any revenue is counted.</span></span></label>
               <div class="fp-input-wrap">
                 <span class="fp-prefix">$</span>
                 <input type="number" id="gross-burn" value="150000" min="0" step="10000">
               </div>
             </div>
             <div class="fp-field">
-              <label>Current B2B MRR</label>
+              <label>Current B2B MRR <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Monthly Recurring Revenue already coming in from existing enterprise contracts. Enter 0 if you have no paying enterprise clients yet.</span></span></label>
               <div class="fp-input-wrap">
                 <span class="fp-prefix">$</span>
                 <input type="number" id="current-mrr-b2b" value="0" min="0" step="1000">
               </div>
             </div>
             <div class="fp-field">
-              <label>Current B2C MRR</label>
+              <label>Current B2C MRR <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Monthly Recurring Revenue already coming in from existing individual subscribers. Enter 0 if you have no paying subscribers yet.</span></span></label>
               <div class="fp-input-wrap">
                 <span class="fp-prefix">$</span>
                 <input type="number" id="current-mrr-b2c" value="0" min="0" step="500">
               </div>
             </div>
             <div class="fp-field">
-              <label>Gross Margin <span class="fp-hint">software COGS</span></label>
+              <label>Gross Margin <span class="fp-hint">software COGS</span> <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">% of revenue left after direct AI/hosting costs (e.g. API calls, compute). Pure software typically runs 70–85%. Used in LTV and Rule of 40 calculations.</span></span></label>
               <div class="fp-input-wrap">
                 <input type="number" id="gross-margin-pct" value="80" min="0" max="100" step="1">
                 <span class="fp-suffix">%</span>
               </div>
             </div>
             <div class="fp-field">
-              <label>Monthly S&amp;M Budget <span class="fp-hint">for Magic No.</span></label>
+              <label>Monthly S&amp;M Budget <span class="fp-hint">for Magic No.</span> <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Monthly spend on Sales &amp; Marketing. Used to calculate the Magic Number — how efficiently you convert S&amp;M spend into new recurring revenue.</span></span></label>
               <div class="fp-input-wrap">
                 <span class="fp-prefix">$</span>
                 <input type="number" id="monthly-sales-budget" value="20000" min="0" step="1000">
@@ -110,28 +110,28 @@
           <div class="runway-input-block">
             <h3 class="runway-block-title">B2B Stream <span class="block-tag">Enterprise</span></h3>
             <div class="input-row">
-              <label>Deal Revenue / Logo / Month ($) <span class="input-hint">set from pricing calc</span></label>
+              <label>Deal Revenue / Client / Month ($) <span class="input-hint">set from pricing calc</span> <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Monthly revenue from one enterprise client (institution). Take the Total Price from the Pricing Calculator and divide by the contract length in months.</span></span></label>
               <div class="slider-input">
                 <input type="range" id="b2b-deal-slider" min="0" max="100000" step="500" value="10000">
                 <input type="number" id="b2b-deal-revenue" value="10000" min="0">
               </div>
             </div>
             <div class="input-row">
-              <label>New Logos per Month</label>
+              <label>New Clients per Month <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Number of new enterprise institutions (medical schools, hospitals, residency programs) you sign contracts with each month. Also called "new logos" in SaaS — each client adds their logo to your roster.</span></span></label>
               <div class="slider-input">
                 <input type="range" id="logos-slider" min="0" max="20" step="1" value="1">
                 <input type="number" id="new-logos" value="1" min="0">
               </div>
             </div>
             <div class="input-row">
-              <label>Sales Cycle (months)</label>
+              <label>Sales Cycle (months) <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Average time from first contact to a signed contract. Enterprise healthcare deals typically take 3–9 months. Revenue is delayed by this many months — deals you start today don't generate cash until later.</span></span></label>
               <div class="slider-input">
                 <input type="range" id="sales-cycle-slider" min="0" max="12" step="1" value="3">
                 <input type="number" id="sales-cycle" value="3" min="0" max="24">
               </div>
             </div>
             <div class="input-row">
-              <label>Annual Logo Churn (%)</label>
+              <label>Annual Client Churn (%) <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">% of enterprise clients that cancel their contract each year. Industry benchmark: 5–10%. Lower is better — losing a client means losing their full annual revenue.</span></span></label>
               <div class="slider-input">
                 <input type="range" id="b2b-churn-slider" min="0" max="50" step="1" value="8">
                 <input type="number" id="b2b-churn" value="8" min="0" max="100">
@@ -139,7 +139,7 @@
               </div>
             </div>
             <div class="input-row">
-              <label>Annual Expansion MRR (%)</label>
+              <label>Annual Expansion MRR (%) <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Annual % growth in revenue from existing clients via upsells, seat expansion, or adding modules. When this exceeds churn %, your NRR goes above 100% — meaning existing clients alone grow your revenue.</span></span></label>
               <div class="slider-input">
                 <input type="range" id="expansion-slider" min="0" max="50" step="1" value="10">
                 <input type="number" id="expansion-pct" value="10" min="0" max="100">
@@ -147,7 +147,7 @@
               </div>
             </div>
             <div class="input-row">
-              <label>B2B CAC ($)</label>
+              <label>B2B CAC ($) <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Customer Acquisition Cost — total sales &amp; marketing spend required to close one enterprise deal. Includes salesperson time, travel, demos, and marketing attribution.</span></span></label>
               <div class="slider-input">
                 <input type="range" id="b2b-cac-slider" min="0" max="100000" step="500" value="8000">
                 <input type="number" id="b2b-cac" value="8000" min="0">
@@ -159,21 +159,21 @@
           <div class="runway-input-block">
             <h3 class="runway-block-title">B2C Stream <span class="block-tag b2c">Individual</span></h3>
             <div class="input-row">
-              <label>New Subscribers / Month</label>
+              <label>New Subscribers / Month <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Number of new individual users (students, clinicians) signing up each month via your website, app stores, or referrals.</span></span></label>
               <div class="slider-input">
                 <input type="range" id="subs-slider" min="0" max="1000" step="10" value="50">
                 <input type="number" id="new-subs" value="50" min="0">
               </div>
             </div>
             <div class="input-row">
-              <label>Monthly Price / Subscriber ($)</label>
+              <label>Monthly Price / Subscriber ($) <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">What each individual subscriber pays per month. Common benchmarks: $10–20 (consumer), $29–49 (professional/prosumer), $99+ (specialist tools).</span></span></label>
               <div class="slider-input">
                 <input type="range" id="b2c-price-slider" min="0" max="500" step="1" value="29">
                 <input type="number" id="b2c-price" value="29" min="0">
               </div>
             </div>
             <div class="input-row">
-              <label>Monthly Churn Rate (%)</label>
+              <label>Monthly Churn Rate (%) <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">% of subscribers who cancel each month. Industry benchmark: 3–8%. At 6% monthly churn, the average subscriber stays ~17 months. Lower churn = higher LTV.</span></span></label>
               <div class="slider-input">
                 <input type="range" id="b2c-churn-slider" min="0" max="30" step="1" value="6">
                 <input type="number" id="b2c-churn" value="6" min="0" max="100">
@@ -181,7 +181,7 @@
               </div>
             </div>
             <div class="input-row">
-              <label>B2C CAC ($)</label>
+              <label>B2C CAC ($) <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Customer Acquisition Cost — average cost to acquire one subscriber via paid ads, content marketing, or referral programs. Must be lower than LTV to be sustainable.</span></span></label>
               <div class="slider-input">
                 <input type="range" id="b2c-cac-slider" min="0" max="500" step="5" value="50">
                 <input type="number" id="b2c-cac" value="50" min="0">
@@ -191,11 +191,11 @@
             <!-- B2C derived stats -->
             <div class="stream-stats">
               <div class="stream-stat">
-                <span class="stat-label">B2C Steady-State MRR</span>
+                <span class="stat-label">B2C Steady-State MRR <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">The MRR ceiling your B2C stream approaches over time at current growth and churn rates. Formula: (New Subs × Price) ÷ Monthly Churn %.</span></span></span>
                 <span class="stat-value mono" id="b2c-steady-state">—</span>
               </div>
               <div class="stream-stat">
-                <span class="stat-label">Avg Subscriber Lifetime</span>
+                <span class="stat-label">Avg Subscriber Lifetime <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Average months a subscriber stays before cancelling. Formula: 1 ÷ Monthly Churn Rate. At 6% churn = ~17 months average lifetime.</span></span></span>
                 <span class="stat-value mono" id="b2c-lifetime">—</span>
               </div>
             </div>
@@ -205,21 +205,21 @@
           <div class="runway-input-block">
             <h3 class="runway-block-title">Raise Planning</h3>
             <div class="input-row">
-              <label>Target Runway (months)</label>
+              <label>Target Runway (months) <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">How many months of cash you want to maintain. Rule of thumb: always keep 18+ months. Start fundraising when you have 12 months left — closing a round takes 3–6 months.</span></span></label>
               <div class="slider-input">
                 <input type="range" id="target-runway-slider" min="6" max="36" step="1" value="18">
                 <input type="number" id="target-runway" value="18" min="1" max="60">
               </div>
             </div>
             <div class="input-row">
-              <label>Planned Raise ($)</label>
+              <label>Planned Raise ($) <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Amount you plan to raise in your next funding round (seed, bridge, Series A, etc.). This cash lands in your account on the close date and extends your runway.</span></span></label>
               <div class="slider-input">
                 <input type="range" id="raise-slider" min="0" max="5000000" step="100000" value="0">
                 <input type="number" id="planned-raise" value="0" min="0">
               </div>
             </div>
             <div class="input-row">
-              <label>Raise Closes in (month)</label>
+              <label>Raise Closes in (month) <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Which month from today you expect the raise to close and cash to land in your account. A warning appears if this is later than your cash-out date.</span></span></label>
               <div class="slider-input">
                 <input type="range" id="raise-month-slider" min="1" max="24" step="1" value="6">
                 <input type="number" id="raise-close-month" value="6" min="1" max="36">
@@ -229,11 +229,11 @@
             <!-- Raise derived stats -->
             <div class="stream-stats">
               <div class="stream-stat">
-                <span class="stat-label">Break-even MRR Target</span>
+                <span class="stat-label">Break-even MRR Target <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">The monthly recurring revenue you need to reach so that MRR ≥ Gross Burn — at this point you stop burning cash from operations.</span></span></span>
                 <span class="stat-value mono" id="breakeven-mrr-target">—</span>
               </div>
               <div class="stream-stat">
-                <span class="stat-label">Logos Needed to Break-even</span>
+                <span class="stat-label">Clients Needed to Break-even <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Number of enterprise clients required at the current deal size to cover your monthly gross burn entirely from B2B revenue alone.</span></span></span>
                 <span class="stat-value mono" id="logos-to-breakeven">—</span>
               </div>
             </div>
@@ -265,27 +265,27 @@
         <div class="kpi-row-label">Runway Health</div>
         <div class="kpi-grid" id="kpi-grid-runway">
           <div class="kpi-card" id="kpi-runway">
-            <span class="kpi-label">Current Runway</span>
+            <span class="kpi-label">Current Runway <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Months of cash remaining at your current net burn rate. Formula: Cash ÷ (Gross Burn − MRR). 🔴 &lt;6 mo  🟡 6–12 mo  🟢 ≥18 mo</span></span></span>
             <span class="kpi-value mono" id="kpi-runway-val">—</span>
             <span class="kpi-sub">months remaining</span>
           </div>
           <div class="kpi-card" id="kpi-netburn">
-            <span class="kpi-label">Net Burn Rate</span>
+            <span class="kpi-label">Net Burn Rate <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Monthly cash consumption after subtracting all revenue. Formula: Gross Burn − Total MRR. Negative means you're cash-flow positive — revenue exceeds expenses.</span></span></span>
             <span class="kpi-value mono" id="kpi-netburn-val">—</span>
             <span class="kpi-sub">per month</span>
           </div>
           <div class="kpi-card" id="kpi-arr">
-            <span class="kpi-label">ARR at Month 12</span>
+            <span class="kpi-label">ARR at Month 12 <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Annualized Run Rate — projected MRR at month 12 multiplied by 12. Key milestones investors track: $500k → $1M → $3M → $10M ARR.</span></span></span>
             <span class="kpi-value mono" id="kpi-arr-val">—</span>
             <span class="kpi-sub" id="kpi-arr-sub">annualized</span>
           </div>
           <div class="kpi-card" id="kpi-breakeven">
-            <span class="kpi-label">Break-even Month</span>
+            <span class="kpi-label">Break-even Month <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">The month when MRR first equals or exceeds Gross Burn. After this point, operations no longer consume cash — you're self-sustaining.</span></span></span>
             <span class="kpi-value mono" id="kpi-breakeven-val">—</span>
             <span class="kpi-sub">MRR = Gross Burn</span>
           </div>
           <div class="kpi-card accent" id="kpi-raise">
-            <span class="kpi-label">Raise Needed</span>
+            <span class="kpi-label">Raise Needed <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Additional capital required to fund your target runway, beyond current cash and projected revenue. Formula: (Burn × Target Months) − Cash − Projected Revenue − Planned Raise.</span></span></span>
             <span class="kpi-value mono" id="kpi-raise-val">—</span>
             <span class="kpi-sub" id="kpi-raise-sub">for target runway</span>
           </div>
@@ -294,27 +294,27 @@
         <div class="kpi-row-label" style="margin-top: 16px;">Unit Economics</div>
         <div class="kpi-grid" id="kpi-grid-economics">
           <div class="kpi-card" id="kpi-b2b-ltvcac">
-            <span class="kpi-label">B2B LTV : CAC</span>
+            <span class="kpi-label">B2B LTV : CAC <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Lifetime Value ÷ Customer Acquisition Cost for enterprise clients. LTV = Deal Revenue × Avg Lifetime × Gross Margin. Benchmark ≥ 3:1. Below 1:1 means you lose money on every client.</span></span></span>
             <span class="kpi-value mono" id="kpi-b2b-ltvcac-val">—</span>
             <span class="kpi-sub">benchmark ≥ 3 : 1</span>
           </div>
           <div class="kpi-card" id="kpi-b2c-ltvcac">
-            <span class="kpi-label">B2C LTV : CAC</span>
+            <span class="kpi-label">B2C LTV : CAC <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Lifetime Value ÷ Customer Acquisition Cost for individual subscribers. LTV = Monthly Price × Avg Lifetime × Gross Margin. Benchmark ≥ 3:1.</span></span></span>
             <span class="kpi-value mono" id="kpi-b2c-ltvcac-val">—</span>
             <span class="kpi-sub">benchmark ≥ 3 : 1</span>
           </div>
           <div class="kpi-card" id="kpi-nrr">
-            <span class="kpi-label">NRR (B2B)</span>
+            <span class="kpi-label">NRR — B2B <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Net Revenue Retention — % of B2B revenue retained after 12 months, including upsells and minus churn. Above 100% means existing clients alone grow your revenue. The #1 metric Series B+ investors look at.</span></span></span>
             <span class="kpi-value mono" id="kpi-nrr-val">—</span>
             <span class="kpi-sub">benchmark ≥ 100%</span>
           </div>
           <div class="kpi-card" id="kpi-cac-payback-b2b">
-            <span class="kpi-label">B2B CAC Payback</span>
+            <span class="kpi-label">B2B CAC Payback <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Months to recover your enterprise client acquisition cost from gross margin. Formula: CAC ÷ (Monthly Revenue × Gross Margin %). Benchmark &lt;12 months.</span></span></span>
             <span class="kpi-value mono" id="kpi-cac-payback-b2b-val">—</span>
             <span class="kpi-sub">benchmark &lt; 12 mo</span>
           </div>
           <div class="kpi-card" id="kpi-magic">
-            <span class="kpi-label">Magic Number</span>
+            <span class="kpi-label">Magic Number <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Measures S&amp;M efficiency. Formula: Net New ARR (year 1) ÷ Annual S&amp;M Spend. ≥0.75 = efficient, ≥1.0 = excellent. Below 0.25 means your sales engine is not working.</span></span></span>
             <span class="kpi-value mono" id="kpi-magic-val">—</span>
             <span class="kpi-sub">benchmark ≥ 0.75</span>
           </div>
@@ -323,27 +323,27 @@
         <!-- Badges row -->
         <div class="badges-row">
           <div class="metric-badge" id="rule40-badge">
-            <span class="badge-label">Rule of 40</span>
+            <span class="badge-label">Rule of 40 <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">YoY revenue growth % + gross margin %. A healthy SaaS scores ≥40. Fast-growing early-stage companies often score 80–150+. Below 40 signals you need to either grow faster or cut costs.</span></span></span>
             <span class="badge-value mono" id="rule40-val">—</span>
             <span class="badge-detail" id="rule40-detail">growth + margin</span>
           </div>
           <div class="metric-badge" id="quick-ratio-badge">
-            <span class="badge-label">Quick Ratio</span>
+            <span class="badge-label">Quick Ratio <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Growth efficiency score. Formula: (New MRR + Expansion MRR) ÷ Churned MRR at month 12. &gt;4 = excellent, 1–4 = growing, &lt;1 = shrinking. Measures how much new revenue you generate per dollar lost to churn.</span></span></span>
             <span class="badge-value mono" id="quick-ratio-val">—</span>
-            <span class="badge-detail">new+expansion / churn</span>
+            <span class="badge-detail">new + expansion ÷ churn</span>
           </div>
           <div class="metric-badge" id="arpu-badge">
-            <span class="badge-label">ARPU at M12</span>
+            <span class="badge-label">ARPU at M12 <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Average Revenue Per User at month 12. Formula: Total MRR ÷ Total Active Customers. Higher ARPU = more revenue per customer, easier path to profitability.</span></span></span>
             <span class="badge-value mono" id="arpu-val">—</span>
             <span class="badge-detail">avg revenue / customer</span>
           </div>
           <div class="metric-badge" id="customers-badge">
-            <span class="badge-label">Total Customers M12</span>
+            <span class="badge-label">Total Customers M12 <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Combined count of active enterprise clients and individual subscribers at month 12, after accounting for growth and churn in both streams.</span></span></span>
             <span class="badge-value mono" id="customers-val">—</span>
-            <span class="badge-detail" id="customers-detail">B2B logos + B2C subs</span>
+            <span class="badge-detail" id="customers-detail">B2B clients + B2C subs</span>
           </div>
           <div class="metric-badge" id="b2c-payback-badge">
-            <span class="badge-label">B2C CAC Payback</span>
+            <span class="badge-label">B2C CAC Payback <span class="info-tip"><span class="info-icon">i</span><span class="info-tooltip">Months to recover your subscriber acquisition cost from gross margin. Formula: CAC ÷ (Monthly Price × Gross Margin %). Benchmark &lt;6 months for consumer SaaS.</span></span></span>
             <span class="badge-value mono" id="b2c-payback-val">—</span>
             <span class="badge-detail">benchmark &lt; 6 mo</span>
           </div>

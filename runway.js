@@ -421,7 +421,7 @@ function updateInlineStats(metrics) {
   if (bmTarget) bmTarget.textContent = fmtCurrency.format(state.grossBurn) + '/mo';
 
   const l2be = document.getElementById('logos-to-breakeven');
-  if (l2be) l2be.textContent = metrics.logosToBreakEven ? `${metrics.logosToBreakEven} logos` : '—';
+  if (l2be) l2be.textContent = metrics.logosToBreakEven ? `${metrics.logosToBreakEven} clients` : '—';
 
   // Sensitivity labels
   const el = (id, text) => { const e = document.getElementById(id); if (e) e.textContent = text; };
