@@ -80,14 +80,14 @@ const state = {
   months: 6,
   educatorCount: 10,
   marginPct: 80, // margin percentage
-  usageScope: 'monthly', // 'monthly' or 'total'
+  usageScope: 'total', // 'monthly' or 'total'
   learnerCases: {
-    'aics-full': { cases: 0 }, 'aics-pd': { cases: 0 }, 'aics-single': { cases: 5 },
+    'aics-full': { cases: 0 }, 'aics-pd': { cases: 0 }, 'aics-single': { cases: 0 },
     'aics-circuit': { cases: 0 }, 'aics-cdss': { cases: 0 },
     'ait-tutoring': { cases: 0 },
   },
   educatorCases: {
-    'aics-full': { cases: 50 }, 'aics-pd': { cases: 0 }, 'aics-single': { cases: 0 },
+    'aics-full': { cases: 0 }, 'aics-pd': { cases: 0 }, 'aics-single': { cases: 0 },
     'ait-course-chapter': { cases: 0 },
   },
 };
