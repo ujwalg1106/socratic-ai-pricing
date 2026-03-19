@@ -577,6 +577,9 @@ input[type="range"]:focus {
 .info-tip {
   position: relative;
   display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  line-height: 1;
 }
 
 .info-icon {
@@ -1361,18 +1364,22 @@ input[type="range"]:focus {
   font-size: 0.78rem;
   font-weight: 500;
   color: var(--color-text-muted);
-  line-height: 1.3;
+  line-height: 1.4;
   min-height: 34px;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: flex-start;
+  gap: 0 4px;
 }
 
 .fp-hint {
+  flex-basis: 100%;   /* pushes to its own line below */
   font-size: 0.68rem;
   font-weight: 400;
   color: var(--color-text-dim);
-  margin-top: 2px;
+  line-height: 1.2;
+  margin-top: 1px;
 }
 
 .fp-input-wrap {
