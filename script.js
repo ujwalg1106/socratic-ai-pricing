@@ -82,13 +82,18 @@ const state = {
   marginPct: 80, // margin percentage
   usageScope: 'total', // 'monthly' or 'total'
   learnerCases: {
-    'aics-full': { cases: 0 }, 'aics-pd': { cases: 0 }, 'aics-single': { cases: 0 },
-    'aics-circuit': { cases: 0 }, 'aics-cdss': { cases: 0 },
-    'ait-tutoring': { cases: 0 },
+    'aics-full':    { cases: 5  },  // 5 full cases per learner
+    'aics-pd':      { cases: 3  },  // 3 physical diagnosis cases
+    'aics-single':  { cases: 10 },  // 10 single station cases
+    'aics-circuit': { cases: 2  },  // 2 circuits
+    'aics-cdss':    { cases: 20 },  // 20 CDSS interactions
+    'ait-tutoring': { cases: 10 },  // 10 hours of AI tutoring
   },
   educatorCases: {
-    'aics-full': { cases: 0 }, 'aics-pd': { cases: 0 }, 'aics-single': { cases: 0 },
-    'ait-course-chapter': { cases: 0 },
+    'aics-full':         { cases: 3 },  // 3 full cases per educator
+    'aics-pd':           { cases: 2 },  // 2 physical diagnosis cases
+    'aics-single':       { cases: 5 },  // 5 single station cases
+    'ait-course-chapter': { cases: 3 }, // 3 AI tutors / course chapters
   },
 };
 

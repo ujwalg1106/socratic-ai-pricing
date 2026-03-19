@@ -62,14 +62,14 @@
               <label>Cash in Bank</label>
               <div class="fp-input-wrap">
                 <span class="fp-prefix">$</span>
-                <input type="number" id="cash-balance" value="0" min="0" step="50000">
+                <input type="number" id="cash-balance" value="500000" min="0" step="50000">
               </div>
             </div>
             <div class="fp-field">
               <label>Monthly Gross Burn</label>
               <div class="fp-input-wrap">
                 <span class="fp-prefix">$</span>
-                <input type="number" id="gross-burn" value="0" min="0" step="10000">
+                <input type="number" id="gross-burn" value="150000" min="0" step="10000">
               </div>
             </div>
             <div class="fp-field">
@@ -89,7 +89,7 @@
             <div class="fp-field">
               <label>Gross Margin <span class="fp-hint">software COGS</span></label>
               <div class="fp-input-wrap">
-                <input type="number" id="gross-margin-pct" value="0" min="0" max="100" step="1">
+                <input type="number" id="gross-margin-pct" value="80" min="0" max="100" step="1">
                 <span class="fp-suffix">%</span>
               </div>
             </div>
@@ -97,7 +97,7 @@
               <label>Monthly S&amp;M Budget <span class="fp-hint">for Magic No.</span></label>
               <div class="fp-input-wrap">
                 <span class="fp-prefix">$</span>
-                <input type="number" id="monthly-sales-budget" value="0" min="0" step="1000">
+                <input type="number" id="monthly-sales-budget" value="20000" min="0" step="1000">
               </div>
             </div>
           </div>
@@ -112,45 +112,45 @@
             <div class="input-row">
               <label>Deal Revenue / Logo / Month ($) <span class="input-hint">set from pricing calc</span></label>
               <div class="slider-input">
-                <input type="range" id="b2b-deal-slider" min="0" max="100000" step="500" value="0">
-                <input type="number" id="b2b-deal-revenue" value="0" min="0">
+                <input type="range" id="b2b-deal-slider" min="0" max="100000" step="500" value="10000">
+                <input type="number" id="b2b-deal-revenue" value="10000" min="0">
               </div>
             </div>
             <div class="input-row">
               <label>New Logos per Month</label>
               <div class="slider-input">
-                <input type="range" id="logos-slider" min="0" max="20" step="1" value="0">
-                <input type="number" id="new-logos" value="0" min="0">
+                <input type="range" id="logos-slider" min="0" max="20" step="1" value="1">
+                <input type="number" id="new-logos" value="1" min="0">
               </div>
             </div>
             <div class="input-row">
               <label>Sales Cycle (months)</label>
               <div class="slider-input">
-                <input type="range" id="sales-cycle-slider" min="0" max="12" step="1" value="0">
-                <input type="number" id="sales-cycle" value="0" min="0" max="24">
+                <input type="range" id="sales-cycle-slider" min="0" max="12" step="1" value="3">
+                <input type="number" id="sales-cycle" value="3" min="0" max="24">
               </div>
             </div>
             <div class="input-row">
               <label>Annual Logo Churn (%)</label>
               <div class="slider-input">
-                <input type="range" id="b2b-churn-slider" min="0" max="50" step="1" value="0">
-                <input type="number" id="b2b-churn" value="0" min="0" max="100">
+                <input type="range" id="b2b-churn-slider" min="0" max="50" step="1" value="8">
+                <input type="number" id="b2b-churn" value="8" min="0" max="100">
                 <span class="markup-suffix">%</span>
               </div>
             </div>
             <div class="input-row">
               <label>Annual Expansion MRR (%)</label>
               <div class="slider-input">
-                <input type="range" id="expansion-slider" min="0" max="50" step="1" value="0">
-                <input type="number" id="expansion-pct" value="0" min="0" max="100">
+                <input type="range" id="expansion-slider" min="0" max="50" step="1" value="10">
+                <input type="number" id="expansion-pct" value="10" min="0" max="100">
                 <span class="markup-suffix">%</span>
               </div>
             </div>
             <div class="input-row">
               <label>B2B CAC ($)</label>
               <div class="slider-input">
-                <input type="range" id="b2b-cac-slider" min="0" max="100000" step="500" value="0">
-                <input type="number" id="b2b-cac" value="0" min="0">
+                <input type="range" id="b2b-cac-slider" min="0" max="100000" step="500" value="8000">
+                <input type="number" id="b2b-cac" value="8000" min="0">
               </div>
             </div>
           </div>
@@ -161,30 +161,30 @@
             <div class="input-row">
               <label>New Subscribers / Month</label>
               <div class="slider-input">
-                <input type="range" id="subs-slider" min="0" max="1000" step="10" value="0">
-                <input type="number" id="new-subs" value="0" min="0">
+                <input type="range" id="subs-slider" min="0" max="1000" step="10" value="50">
+                <input type="number" id="new-subs" value="50" min="0">
               </div>
             </div>
             <div class="input-row">
               <label>Monthly Price / Subscriber ($)</label>
               <div class="slider-input">
-                <input type="range" id="b2c-price-slider" min="0" max="500" step="1" value="0">
-                <input type="number" id="b2c-price" value="0" min="0">
+                <input type="range" id="b2c-price-slider" min="0" max="500" step="1" value="29">
+                <input type="number" id="b2c-price" value="29" min="0">
               </div>
             </div>
             <div class="input-row">
               <label>Monthly Churn Rate (%)</label>
               <div class="slider-input">
-                <input type="range" id="b2c-churn-slider" min="0" max="30" step="1" value="0">
-                <input type="number" id="b2c-churn" value="0" min="0" max="100">
+                <input type="range" id="b2c-churn-slider" min="0" max="30" step="1" value="6">
+                <input type="number" id="b2c-churn" value="6" min="0" max="100">
                 <span class="markup-suffix">%</span>
               </div>
             </div>
             <div class="input-row">
               <label>B2C CAC ($)</label>
               <div class="slider-input">
-                <input type="range" id="b2c-cac-slider" min="0" max="500" step="5" value="0">
-                <input type="number" id="b2c-cac" value="0" min="0">
+                <input type="range" id="b2c-cac-slider" min="0" max="500" step="5" value="50">
+                <input type="number" id="b2c-cac" value="50" min="0">
               </div>
             </div>
 
@@ -207,8 +207,8 @@
             <div class="input-row">
               <label>Target Runway (months)</label>
               <div class="slider-input">
-                <input type="range" id="target-runway-slider" min="0" max="36" step="1" value="0">
-                <input type="number" id="target-runway" value="0" min="0" max="60">
+                <input type="range" id="target-runway-slider" min="6" max="36" step="1" value="18">
+                <input type="number" id="target-runway" value="18" min="1" max="60">
               </div>
             </div>
             <div class="input-row">
@@ -221,8 +221,8 @@
             <div class="input-row">
               <label>Raise Closes in (month)</label>
               <div class="slider-input">
-                <input type="range" id="raise-month-slider" min="0" max="24" step="1" value="0">
-                <input type="number" id="raise-close-month" value="0" min="0" max="36">
+                <input type="range" id="raise-month-slider" min="1" max="24" step="1" value="6">
+                <input type="number" id="raise-close-month" value="6" min="1" max="36">
               </div>
             </div>
 

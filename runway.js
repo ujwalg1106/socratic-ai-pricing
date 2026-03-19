@@ -31,25 +31,25 @@
 
 /* ===== Default State ===== */
 const DEFAULTS = {
-  cashBalance: 0,
-  grossBurn: 0,
+  cashBalance: 500000,    // $500k in bank
+  grossBurn: 150000,      // $150k/mo all-in burn
   currentMRRb2b: 0,
   currentMRRb2c: 0,
-  grossMarginPct: 0,
-  monthlySalesBudget: 0,
-  b2bDealRevenue: 0,
-  newLogosPerMonth: 0,
-  salesCycleMo: 0,
-  b2bAnnualChurn: 0,
-  expansionPct: 0,
-  b2bCAC: 0,
-  newSubsPerMonth: 0,
-  b2cMonthlyPrice: 0,
-  b2cMonthlyChurn: 0,
-  b2cCAC: 0,
-  targetRunwayMonths: 0,
-  plannedRaise: 0,
-  raiseCloseMonth: 0,
+  grossMarginPct: 80,     // 80% software gross margin
+  monthlySalesBudget: 20000, // $20k/mo on sales & marketing
+  b2bDealRevenue: 10000,  // $10k/mo per enterprise logo
+  newLogosPerMonth: 1,    // 1 new enterprise deal/mo
+  salesCycleMo: 3,        // 3-month enterprise sales cycle
+  b2bAnnualChurn: 8,      // 8% annual logo churn
+  expansionPct: 10,       // 10% annual expansion MRR
+  b2bCAC: 8000,           // $8k to close one enterprise deal
+  newSubsPerMonth: 50,    // 50 new B2C subscribers/mo
+  b2cMonthlyPrice: 29,    // $29/mo per subscriber
+  b2cMonthlyChurn: 6,     // 6% monthly B2C churn
+  b2cCAC: 50,             // $50 to acquire one subscriber
+  targetRunwayMonths: 18, // target 18 months of runway
+  plannedRaise: 500000,   // $500k seed bridge
+  raiseCloseMonth: 6,     // closes at month 6
 };
 
 const state = { ...DEFAULTS };
