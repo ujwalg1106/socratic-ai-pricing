@@ -10,16 +10,38 @@
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
     return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
   }
+  let attempts = 0;
+  const MAX_ATTEMPTS = 5;
+  const LOCKOUT_MS = 60000;
+
   async function tryUnlock() {
     const input = document.getElementById('lock-input');
     const error = document.getElementById('lock-error');
+    const btn = document.getElementById('lock-btn');
+
+    if (attempts >= MAX_ATTEMPTS) {
+      error.textContent = 'Too many attempts. Try again in 1 minute.';
+      btn.disabled = true; input.disabled = true;
+      setTimeout(() => { attempts = 0; btn.disabled = false; input.disabled = false; error.textContent = ''; input.focus(); }, LOCKOUT_MS);
+      return;
+    }
+
     const hash = await sha256(input.value);
     if (hash === PASS_HASH) {
+      attempts = 0;
       sessionStorage.setItem('unlocked', 'true');
       document.getElementById('lock-screen').classList.add('hidden');
       document.documentElement.style.overflow = '';
     } else {
-      error.textContent = 'Incorrect password';
+      attempts++;
+      const remaining = MAX_ATTEMPTS - attempts;
+      error.textContent = remaining > 0
+        ? `Incorrect password. ${remaining} attempt${remaining === 1 ? '' : 's'} remaining.`
+        : 'Too many attempts. Try again in 1 minute.';
+      if (attempts >= MAX_ATTEMPTS) {
+        btn.disabled = true; input.disabled = true;
+        setTimeout(() => { attempts = 0; btn.disabled = false; input.disabled = false; error.textContent = ''; input.focus(); }, LOCKOUT_MS);
+      }
       input.value = ''; input.focus();
     }
   }
