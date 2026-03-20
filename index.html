@@ -52,6 +52,10 @@
       </a>
     </nav>
     <div class="sidebar-footer">
+      <button class="sidebar-logout-btn" id="logout-btn" data-tooltip="Logout">
+        <svg class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 001 1h5a1 1 0 100-2H4V5h4a1 1 0 100-2H3zm11.707 3.293a1 1 0 010 1.414L12.414 10l2.293 2.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M8 10a1 1 0 011-1h8a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+        <span>Logout</span>
+      </button>
       <div class="sidebar-footer-row">
         <p>Internal Use Only</p>
         <button class="sidebar-collapse-btn" id="sidebar-collapse" aria-label="Toggle sidebar">
@@ -60,6 +64,21 @@
       </div>
     </div>
   </aside>
+
+  <!-- Logout confirmation modal -->
+  <div class="logout-modal-overlay" id="logout-modal">
+    <div class="logout-modal">
+      <div class="logout-modal-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </div>
+      <h3>Sign Out</h3>
+      <p>Are you sure you want to sign out? You'll need to enter your password again to access the tool.</p>
+      <div class="logout-modal-actions">
+        <button class="logout-cancel-btn" id="logout-cancel">Cancel</button>
+        <button class="logout-confirm-btn" id="logout-confirm">Sign Out</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Mobile header -->
   <header class="app-header">

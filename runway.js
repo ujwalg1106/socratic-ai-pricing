@@ -964,4 +964,31 @@ function initSidebar() {
       localStorage.setItem('sidebarCollapsed', collapsed);
     });
   }
+
+  // Logout button + confirmation modal
+  const logoutBtn = document.getElementById('logout-btn');
+  const logoutModal = document.getElementById('logout-modal');
+  const logoutCancel = document.getElementById('logout-cancel');
+  const logoutConfirm = document.getElementById('logout-confirm');
+
+  if (logoutBtn && logoutModal) {
+    logoutBtn.addEventListener('click', () => {
+      logoutModal.classList.add('visible');
+    });
+    logoutCancel.addEventListener('click', () => {
+      logoutModal.classList.remove('visible');
+    });
+    logoutModal.addEventListener('click', (e) => {
+      if (e.target === logoutModal) logoutModal.classList.remove('visible');
+    });
+    logoutConfirm.addEventListener('click', () => {
+      sessionStorage.removeItem('unlocked');
+      location.reload();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && logoutModal.classList.contains('visible')) {
+        logoutModal.classList.remove('visible');
+      }
+    });
+  }
 }
