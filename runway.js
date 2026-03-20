@@ -93,9 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
   bindEvents();
   recalculate();
   initRevealObserver();
-  document.getElementById('brand-link').addEventListener('click', e => {
-    e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  initSidebar();
 });
 
 /* ===== Event Binding ===== */
@@ -909,4 +907,39 @@ function initRevealObserver() {
     { threshold: 0.06, rootMargin: '0px 0px -40px 0px' }
   );
   reveals.forEach(el => observer.observe(el));
+}
+
+/* ===== Sidebar Toggle ===== */
+function initSidebar() {
+  const toggle = document.getElementById('sidebar-toggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  const collapseBtn = document.getElementById('sidebar-collapse');
+  if (!sidebar) return;
+
+  if (localStorage.getItem('sidebarCollapsed') === 'true') {
+    sidebar.classList.add('collapsed');
+    document.body.classList.add('sidebar-collapsed');
+  }
+
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('open');
+    });
+  }
+  if (overlay) {
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+    });
+  }
+
+  if (collapseBtn) {
+    collapseBtn.addEventListener('click', () => {
+      const collapsed = sidebar.classList.toggle('collapsed');
+      document.body.classList.toggle('sidebar-collapsed', collapsed);
+      localStorage.setItem('sidebarCollapsed', collapsed);
+    });
+  }
 }

@@ -32,18 +32,46 @@
 
   <div class="internal-banner">⚠ Strictly for Internal Use Only</div>
 
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <img src="S-Logo.png" alt="Socratic AI" class="sidebar-logo sidebar-logo-full">
+      <img src="White_Symbol.png" alt="Socratic AI" class="sidebar-logo sidebar-logo-icon">
+    </div>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="sidebar-link" data-tooltip="Pricing Calculator">
+        <svg class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"/></svg>
+        <span>Pricing Calculator</span>
+      </a>
+      <a href="runway.html" class="sidebar-link active" data-tooltip="Runway Projections">
+        <svg class="sidebar-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+        <span>Runway Projections</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-row">
+        <p>Internal Use Only</p>
+        <button class="sidebar-collapse-btn" id="sidebar-collapse" aria-label="Toggle sidebar">
+          <svg class="collapse-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Mobile header -->
   <header class="app-header">
     <div class="container header-flex">
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
       <a href="runway.html" class="header-brand" id="brand-link">
         <img src="S-Logo.png" alt="Socratic AI" class="brand-logo">
-        <span class="header-divider"></span>
-        <p class="subtitle">Runway Projections</p>
       </a>
-      <nav class="header-nav">
-        <a href="index.html" class="header-nav-link">← Pricing Calculator</a>
-      </nav>
     </div>
   </header>
+
+  <!-- Sidebar overlay for mobile -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
   <main id="app">
 

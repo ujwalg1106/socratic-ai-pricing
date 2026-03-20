@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
   bindEvents();
   recalculate();
   initRevealObserver();
+  initSidebar();
 });
 
 
@@ -437,4 +438,42 @@ function initRevealObserver() {
     { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
   );
   reveals.forEach((el) => observer.observe(el));
+}
+
+/* ===== Sidebar Toggle ===== */
+function initSidebar() {
+  const toggle = document.getElementById('sidebar-toggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  const collapseBtn = document.getElementById('sidebar-collapse');
+  if (!sidebar) return;
+
+  // Restore collapsed state from localStorage
+  if (localStorage.getItem('sidebarCollapsed') === 'true') {
+    sidebar.classList.add('collapsed');
+    document.body.classList.add('sidebar-collapsed');
+  }
+
+  // Mobile: hamburger toggle
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('open');
+    });
+  }
+  if (overlay) {
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+    });
+  }
+
+  // Desktop: collapse/expand toggle
+  if (collapseBtn) {
+    collapseBtn.addEventListener('click', () => {
+      const collapsed = sidebar.classList.toggle('collapsed');
+      document.body.classList.toggle('sidebar-collapsed', collapsed);
+      localStorage.setItem('sidebarCollapsed', collapsed);
+    });
+  }
 }
